@@ -5,6 +5,7 @@ module.exports = {
     index: function(req, res){
         // res.render('./../server/views/users/index', {title:'Welcome Page'});
         res.render('./../public/views/index', {title:'Welcome Page'});
+        // res.render('./../public/index', {title:'Welcome Page'});
     },
     index_json: function(req, res){ 
         User.find({}, function(err, results){

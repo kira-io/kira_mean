@@ -50,14 +50,14 @@ module.exports = function Routes(app, io){
   		console.log('socket.id', socket.id);
   		
   		//add user to inital room
-  		socket.on('join_room', function (data){
+  		socket.on('client:join_room', function (data){
 	 		  socket.join(data.room);
         // io.to(data.room).emit('message', {name: 'eric', message: 'message'}); //emitting to room
 	 		  socket.emit('get_name'); //emitting to user to get user name
 	 	  });
 
   		//removes user from previous room to join new room
-  		socket.on('change_room', function (data){
+  		socket.on('client:change_room', function (data){
   			socket.leave(data.prev_room)
   			socket.join(data.new_room)
         socket.emit('get_name'); //emitting to room
@@ -68,10 +68,18 @@ module.exports = function Routes(app, io){
       })
 
   		//listens for chat message from client to broadcast to other users in the room
-  		socket.on('emit_message', function (data){
-  			io.to(data.room).emit('incoming_message', {name: data.name, message: data.message})
+  		socket.on('client:emit_message', function (data){
+  			io.to(data.room).emit('server:incoming_message', {name: data.name, message: data.message})
   		});
-	 	
+
+      socket.on('client:room_expired', function(data){
+        io.emit('server: room_expired', {post_id: data.post_id})
+      })
+	 	   
+      socket.on('client: limbo_room', function (data){
+        io.to(data.post_id).emit('server: expired_room')
+      })
+      
   		socket.emit('info',{ msg: 'The world is round, there is no up or down.' }); //sending a message to just that person
 
 	  	io.emit('global_event', { msg: 'hello' }); //broadcasting to everyone

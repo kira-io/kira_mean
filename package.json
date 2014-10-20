@@ -8,6 +8,9 @@
   "dependencies": {
     "socket.io": "latest",
     "express": "3.4.8",
-    "ejs": "*"
+    "ejs": "*",
+    "is-bot": "0.0.1",
+    "request": "^2.40.0",
+    "externalip": "latest"
   }
 }
