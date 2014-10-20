@@ -39,7 +39,7 @@ module.exports = function Routes(app, io){
       });
 
       socket.on('client:limbo_room', function (data){
-        io.to(data.room_number).emit('server:expired_room')
+        io.emit('server:expired_room')
       });
 
       socket.on('disconnect', function(data) {
