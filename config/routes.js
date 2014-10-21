@@ -42,6 +42,10 @@ module.exports = function Routes(app, io){
         io.emit('server:expired_room', {room_num: data.room_number})
       });
 
+      socket.on('client:send_user_name', function(data){
+        io.emit('server:client_user_name', {name: data.name})
+      })
+
       socket.on('disconnect', function(data) {
         socket.disconnect();
         socket.leave(data.room);
