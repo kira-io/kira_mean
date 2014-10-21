@@ -11,22 +11,25 @@ module.exports = function Routes(app, io){
       socket.on('in_all_posts', function(data){
         console.log('IN ALL POSTS', socket.rooms);
       });
+
       socket.on('client:join_room', function(data) {
         if (socket.rooms.length > 1 && socket.rooms[1] != data.room) {
           console.log('LEAVING ROOM', socket.rooms[1]);
           socket.leave(socket.rooms[1]);
           socket.join(data.room);
+
         } else {
           socket.join(data.room);
         }
+        io.to(data.room).emit('server:new_user', {name: data.name}); //
       });
 
-      socket.on('client:change_room', function(data) {
-          console.log('Client has left', data.prev_room);
-          console.log('Client has joined', data.new_room);
-          socket.leave(data.prev_room);
-          socket.join(data.new_room);
-      });
+      // socket.on('client:change_room', function(data) {
+      //     console.log('Client has left', data.prev_room);
+      //     console.log('Client has joined', data.new_room);
+      //     socket.leave(data.prev_room);
+      //     socket.join(data.new_room);
+      // });
 
       socket.on('client:emit_message', function(data) {
           console.log('Client has emitted this message', data);
@@ -43,7 +46,7 @@ module.exports = function Routes(app, io){
       });
 
       socket.on('client:send_user_name', function(data){
-        io.emit('server:client_user_name', {name: data.name})
+        io.emit('server:client_user_name', {name: data.name}) //
       })
 
       socket.on('disconnect', function(data) {
