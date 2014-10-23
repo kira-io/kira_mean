@@ -29,28 +29,21 @@ module.exports = function Routes(app, io){
           console.log(socketId);
           users_in_room++;
         }
-        io.to(data.room).emit('server:new_user', {name: data.name, num_users: users_in_room});
-        // io.to(data.room).emit('server:new_user', {name: data.name});
+        io.to(data.room).emit('server:new_user', {name: data.name, num_users: users_in_room, socket_id: socket.id});
       });
 
       socket.on('room_count', function(data){
         var namespace = '/';
         var roomName = data.room;
         var users_in_room = 0;
+        console.log('socket', socket.id)
 
         for (var socketId in io.nsps[namespace].adapter.rooms[roomName]){
           console.log(socketId);
           users_in_room++;
         }
-        socket.emit('server:new_user', {name: data.name, num_users: users_in_room});
+        socket.emit('room_count1', {name: data.name, num_users: users_in_room, socket_id: socket.id});
       });
-
-      // socket.on('client:change_room', function(data) {
-      //     console.log('Client has left', data.prev_room);
-      //     console.log('Client has joined', data.new_room);
-      //     socket.leave(data.prev_room);
-      //     socket.join(data.new_room);
-      // });
 
       socket.on('client:join_room_from_reload', function(data) {
         if (socket.rooms.length > 1 && socket.rooms[1] != data.room){
@@ -77,12 +70,8 @@ module.exports = function Routes(app, io){
       });
 
       socket.on('client:send_user_name', function(data){
-        socket.emit('server:user_name', {name: data.name, id: data.id}) //
+        socket.emit('server:user_name', {name: data.name, id: data.id, socket_id: socket.id}) //
       });
-
-      // socket.on('client:send_user_name', function(data){
-      //   io.emit('server:client_user_name', {name: data.name}) //
-      // });
 
       socket.on('client:leave_room', function(data){
         var current_room = socket.rooms[1];
