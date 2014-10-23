@@ -73,6 +73,10 @@ module.exports = function Routes(app, io){
         socket.emit('server:user_name', {name: data.name, id: data.id, socket_id: socket.id}) //
       });
 
+      socket.on('client:message_sent_to', function(data){
+          socket.broadcast.emit('server:message_sent_to', {user_id: data.user_id})
+      });
+
       socket.on('client:leave_room', function(data){
         var current_room = socket.rooms[1];
         socket.leave(current_room);
