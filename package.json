@@ -29,7 +29,7 @@
     "url": "https://github.com/kira-io/kira_mean/issues"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.32"
   },
   "homepage": "https://github.com/kira-io/kira_mean"
 }
