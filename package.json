@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "kira",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -12,5 +12,21 @@
     "is-bot": "0.0.1",
     "request": "^2.40.0",
     "externalip": "latest"
-  }
+  },
+  "description": "kira MEAN",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kira-io/kira_mean.git"
+  },
+  "keywords": [
+    "kira_mean"
+  ],
+  "author": "Kira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kira-io/kira_mean/issues"
+  },
+  "homepage": "https://github.com/kira-io/kira_mean"
 }
