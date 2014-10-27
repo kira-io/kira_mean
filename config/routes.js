@@ -6,6 +6,7 @@ var users = require('./../server/controllers/users.js');
 // var artist_messages = [];
 
 module.exports = function Routes(app, io){
+  app.get('/', function(req,res) { req.session.page = 'index'; console.log('request', req.session); users.index(req,res) });
     io.sockets.on('connection', function(socket) {
       socket.on('in_all_posts', function(data){
         console.log('IN ALL POSTS', socket.rooms);
