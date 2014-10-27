@@ -6,12 +6,13 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "socket.io": "latest",
-    "express": "3.4.8",
+    "body-parser": "^1.9.1",
     "ejs": "*",
+    "express": "3.4.8",
+    "externalip": "latest",
     "is-bot": "0.0.1",
     "request": "^2.40.0",
-    "externalip": "latest"
+    "socket.io": "latest"
   },
   "description": "kira MEAN",
   "main": "server.js",
